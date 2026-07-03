@@ -322,6 +322,11 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
 .biz-search-input:focus{border-color:#2f43c9;box-shadow:0 0 0 3px rgba(47,67,201,0.09);background:#fff;}
 .biz-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#9aa2b2;font-size:15px;line-height:1;padding:2px;font-family:inherit;}
 .biz-search-hint{font-size:11px;color:#9aa2b2;font-weight:600;}
+.biz-sec-srch-wrap{position:relative;display:inline-flex;align-items:center;}
+.biz-sec-srch{padding:5px 26px 5px 26px;font-size:11.5px;font-weight:500;border:1.5px solid #e0e4ef;border-radius:7px;background:#f8f9fc;width:165px;font-family:inherit;outline:none;transition:border 0.15s,box-shadow 0.15s;color:#28304a;}
+.biz-sec-srch:focus{border-color:#2f43c9;box-shadow:0 0 0 3px rgba(47,67,201,0.08);background:#fff;}
+.biz-sec-srch-ico{position:absolute;left:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:#9aa2b2;}
+.biz-sec-srch-clr{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#9aa2b2;font-size:14px;line-height:1;padding:0;font-family:inherit;}
 .biz-draft-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #c4d7fc;background:#f3f6fe;color:#1a56db;transition:background 0.12s;font-family:inherit;}
 .biz-draft-btn:hover{background:#e8f0fe;}
 .biz-draft-panel{position:absolute;right:22px;top:calc(100% + 6px);width:360px;background:#fff;border:1px solid #e0e4ef;border-radius:14px;box-shadow:0 8px 32px rgba(16,24,40,0.13);z-index:200;overflow:hidden;}
@@ -726,7 +731,7 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
             </div>
             <span class="biz-sec-count" id="bizSecACount" style="background:#e8f0fe;color:#0070C0;"></span>
           </div>
-          <div id="bizSecATotal" style="font-size:20px;font-weight:800;color:#0070C0;white-space:nowrap;"></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchA" type="text" placeholder="Search…" oninput="setBizSrch('A',this.value)"><button class="biz-sec-srch-clr" id="bizSrchAClr" onclick="clearBizSrch('A')" style="display:none">×</button></div><div id="bizSecATotal" style="font-size:20px;font-weight:800;color:#0070C0;white-space:nowrap;"></div></div>
         </div>
         <div class="biz-kpi-row" id="bizSecAKPI" style="padding:0 22px 4px;"></div>
         <div class="biz-table-wrap"><div id="bizSecATable"></div></div>
@@ -744,7 +749,7 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
             </div>
             <span class="biz-sec-count" id="bizSecBCount" style="background:#e4f5ea;color:#147a45;"></span>
           </div>
-          <div id="bizSecBTotal" style="font-size:20px;font-weight:800;color:#147a45;white-space:nowrap;"></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchB" type="text" placeholder="Search…" oninput="setBizSrch('B',this.value)"><button class="biz-sec-srch-clr" id="bizSrchBClr" onclick="clearBizSrch('B')" style="display:none">×</button></div><div id="bizSecBTotal" style="font-size:20px;font-weight:800;color:#147a45;white-space:nowrap;"></div></div>
         </div>
         <div class="biz-table-wrap"><div id="bizSecBTable"></div></div>
         <div id="bizSecBAddArea"></div>
@@ -761,9 +766,10 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
             </div>
             <span class="biz-sec-count" id="bizSecCCount" style="background:#eeebfb;color:#533ab7;"></span>
           </div>
-          <div id="bizSecCTotal" style="font-size:20px;font-weight:800;color:#533ab7;white-space:nowrap;"></div>
+          <div style="display:flex;align-items:center;gap:10px;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchC" type="text" placeholder="Search…" oninput="setBizSrch('C',this.value)"><button class="biz-sec-srch-clr" id="bizSrchCClr" onclick="clearBizSrch('C')" style="display:none">×</button></div><div id="bizSecCTotal" style="font-size:20px;font-weight:800;color:#533ab7;white-space:nowrap;"></div></div>
         </div>
         <div class="biz-table-wrap"><div id="bizSecCTable"></div></div>
+        <div id="bizSecCAddArea"></div>
       </div>
 
     </div>
@@ -1156,7 +1162,7 @@ async function saveToFlow() {
 }
 
 function localPersist() {
-  try { localStorage.setItem("sea-weekly-v8", JSON.stringify({deals:state.deals,meetings:state.meetings,activityLog:state.activityLog,bizCommitOverrides:state.bizCommitOverrides,bizAchievements:state.bizAchievements,bizDrafts:state.bizDrafts,users:state.users})); } catch(e){}
+  try { localStorage.setItem("sea-weekly-v8", JSON.stringify({deals:state.deals,meetings:state.meetings,activityLog:state.activityLog,bizCommitOverrides:state.bizCommitOverrides,bizAchievements:state.bizAchievements,bizExcludes:state.bizExcludes,bizCExcludes:state.bizCExcludes,bizCManual:state.bizCManual,bizDrafts:state.bizDrafts,users:state.users})); } catch(e){}
 }
 
 function persist() {
@@ -1255,6 +1261,9 @@ let state = {
   bizSearch: "",
   bizCommitOverrides: (saved && saved.bizCommitOverrides) || {},
   bizAchievements: (saved && saved.bizAchievements) || {},
+  bizExcludes: (saved && saved.bizExcludes) || {},
+  bizCExcludes: (saved && saved.bizCExcludes) || [],
+  bizCManual: (saved && saved.bizCManual) || [],
   bizDrafts: (saved && saved.bizDrafts) || {},
   users: (saved && saved.users) || DEFAULT_USERS,
   currentUserId: localStorage.getItem("sea-weekly-current-user") || "u1",
@@ -3205,9 +3214,11 @@ function bizGetQuarterInfo(){
 
 function bizGetCommittedDeals(ym){
   const overrides=(state.bizCommitOverrides||{})[ym]||[];
+  const excl=new Set((state.bizExcludes||{})[ym]||[]);
   let deals=state.deals.filter(d=>
-    ((d.stage==="commercial"||d.stage==="won")&&d.close&&d.close.startsWith(ym))
-    ||overrides.includes(d.id)
+    (((d.stage==="commercial"||d.stage==="won")&&d.close&&d.close.startsWith(ym))
+    ||overrides.includes(d.id))
+    &&!excl.has(d.id)
   );
   if(state.bizOwner&&state.bizOwner!=="all") deals=deals.filter(d=>d.owner===state.bizOwner);
   return deals.sort((a,b)=>(b.amount||0)-(a.amount||0));
@@ -3255,33 +3266,41 @@ function _bizRenderAddPanel(areaId, rm){
   // Which deals are already in committed list for this month?
   const committed=bizGetCommittedDeals(rm);
   const committedIds=new Set(committed.map(d=>d.id));
-  // Active pipeline deals NOT already committed (any stage, any close date)
+  const excl=(state.bizExcludes||{})[rm]||[];
   const ACTIVE=["qualification","demo","proposal","commercial"];
-  const candidates=state.deals.filter(d=>ACTIVE.includes(d.stage)&&!committedIds.has(d.id))
+  // Deals NOT in committed (candidates to add)
+  const candidates=state.deals.filter(d=>ACTIVE.includes(d.stage)&&!committedIds.has(d.id)&&!excl.includes(d.id))
     .sort((a,b)=>(a.close||"").localeCompare(b.close||"")||(b.amount||0)-(a.amount||0));
+  // Excluded deals (can be added back)
+  const excluded=state.deals.filter(d=>excl.includes(d.id))
+    .sort((a,b)=>(b.amount||0)-(a.amount||0));
   const panelId="bizAddPanelInner_"+areaId;
   const existingPanel=document.getElementById(panelId);
   const isOpen=existingPanel&&existingPanel.style.display!=="none";
-  const rows=candidates.map(d=>`<tr>
-    <td style="font-weight:700;">${d.name||""}</td>
+  const mkRow=(d,isExcl)=>`<tr${isExcl?" style='opacity:0.75;background:#fff8f8;'":""}>
+    <td style="font-weight:700;">${d.name||""}${isExcl?'<br><span style="font-size:9.5px;color:#bf3147;font-weight:700;">Removed</span>':""}</td>
     <td>${bizStageLbl(d.stage)}</td>
     <td>${d.country||""}</td>
     <td style="text-align:right;font-variant-numeric:tabular-nums;font-weight:600;">$${bizFmt(d.amount)}</td>
     <td>${d.close?bizMonthShort(d.close.substring(0,7)):"—"}</td>
-    <td><button class="btn-biz-add-deal" onclick="bizToggleCommit('${d.id}','${rm}')">＋ Add to ${bizMonthShort(rm)}</button></td>
-  </tr>`).join("");
-  const noDeals=`<div class="biz-empty" style="padding:14px;">All pipeline deals are already committed for this month.</div>`;
+    <td>${isExcl
+      ?`<button class="btn-biz-add-deal" style="background:#fce8ec;border-color:#f3b8c2;color:#bf3147;" onclick="bizAddToSection('${d.id}','${rm}')">↩ Add back</button>`
+      :`<button class="btn-biz-add-deal" onclick="bizToggleCommit('${d.id}','${rm}')">＋ Add</button>`}
+    </td>
+  </tr>`;
+  const allRows=[...excluded.map(d=>mkRow(d,true)),...candidates.map(d=>mkRow(d,false))].join("");
+  const noDeals=`<div class="biz-empty" style="padding:14px;">All pipeline deals are committed for this month.</div>`;
   area.innerHTML=`
     <button class="biz-add-trigger" onclick="document.getElementById('${panelId}').style.display=document.getElementById('${panelId}').style.display==='none'?'':'none'">
-      ＋ Add deal from pipeline
+      ＋ Add / restore deals
     </button>
     <div id="${panelId}" style="display:${isOpen?"":"none"}">
       <div class="biz-add-panel-wrap">
         <div class="biz-add-panel-hdr">
-          <span>Select deals to add to committed list for ${bizMonthLabel(rm)}</span>
+          <span>Add or restore deals for ${bizMonthLabel(rm)}</span>
           <button class="biz-add-panel-close" onclick="document.getElementById('${panelId}').style.display='none'">✕</button>
         </div>
-        ${candidates.length?`<div style="overflow-x:auto;"><table class="biz-tbl-mini"><thead><tr><th>Account</th><th>Stage</th><th>Region</th><th>Total (USD)</th><th>Close</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`:noDeals}
+        ${allRows?`<div style="overflow-x:auto;"><table class="biz-tbl-mini"><thead><tr><th>Account</th><th>Stage</th><th>Region</th><th>Total (USD)</th><th>Close</th><th></th></tr></thead><tbody>${allRows}</tbody></table></div>`:noDeals}
       </div>
     </div>`;
 }
@@ -3393,6 +3412,103 @@ function bizDeleteDraft(ym, idx){
   _bizRefreshDraftPanel();
 }
 
+
+// ── Per-section search ───────────────────────────────────────────────────────
+function setBizSrch(sec, q){
+  state["bizSrch"+sec]=q||"";
+  const clr=document.getElementById("bizSrch"+sec+"Clr");
+  if(clr) clr.style.display=q?"":"none";
+  renderBizReview();
+}
+function clearBizSrch(sec){
+  state["bizSrch"+sec]="";
+  const inp=document.getElementById("bizSrch"+sec);
+  if(inp) inp.value="";
+  const clr=document.getElementById("bizSrch"+sec+"Clr");
+  if(clr) clr.style.display="none";
+  renderBizReview();
+}
+
+// ── Section A/B remove / add-back ───────────────────────────────────────────
+function bizRemoveFromSection(dealId, ym){
+  if(!state.bizExcludes) state.bizExcludes={};
+  if(!state.bizExcludes[ym]) state.bizExcludes[ym]=[];
+  if(!state.bizExcludes[ym].includes(dealId)) state.bizExcludes[ym].push(dealId);
+  // also remove from manual overrides
+  if(state.bizCommitOverrides&&state.bizCommitOverrides[ym]){
+    const idx=state.bizCommitOverrides[ym].indexOf(dealId);
+    if(idx>=0) state.bizCommitOverrides[ym].splice(idx,1);
+  }
+  localPersist(); renderBizReview();
+}
+function bizAddToSection(dealId, ym){
+  // remove from excludes
+  if(state.bizExcludes&&state.bizExcludes[ym]){
+    const idx=state.bizExcludes[ym].indexOf(dealId);
+    if(idx>=0) state.bizExcludes[ym].splice(idx,1);
+  }
+  // add to overrides
+  if(!state.bizCommitOverrides) state.bizCommitOverrides={};
+  if(!state.bizCommitOverrides[ym]) state.bizCommitOverrides[ym]=[];
+  if(!state.bizCommitOverrides[ym].includes(dealId)) state.bizCommitOverrides[ym].push(dealId);
+  localPersist(); renderBizReview();
+}
+
+// ── Section C (pipeline) remove / add ───────────────────────────────────────
+function bizRemoveFromC(dealId){
+  if(!state.bizCExcludes) state.bizCExcludes=[];
+  if(!state.bizCExcludes.includes(dealId)) state.bizCExcludes.push(dealId);
+  if(state.bizCManual){const idx=state.bizCManual.indexOf(dealId);if(idx>=0) state.bizCManual.splice(idx,1);}
+  localPersist(); renderBizReview();
+}
+function bizAddToC(dealId){
+  if(state.bizCExcludes){const idx=state.bizCExcludes.indexOf(dealId);if(idx>=0) state.bizCExcludes.splice(idx,1);}
+  if(!state.bizCManual) state.bizCManual=[];
+  if(!state.bizCManual.includes(dealId)) state.bizCManual.push(dealId);
+  localPersist(); renderBizReview();
+}
+
+// ── Section C add panel ──────────────────────────────────────────────────────
+function _bizRenderCAddPanel(areaId, currentDeals){
+  const area=document.getElementById(areaId);
+  if(!area) return;
+  const currentIds=new Set(currentDeals.map(d=>d.id));
+  const cExcl=new Set(state.bizCExcludes||[]);
+  const ACTIVE=["qualification","demo","proposal","commercial"];
+  // Excluded deals (were in C, now hidden) — show "Add back"
+  const excluded=state.deals.filter(d=>cExcl.has(d.id));
+  // All other active deals not currently in C — show "Add"
+  const candidates=state.deals.filter(d=>ACTIVE.includes(d.stage)&&!currentIds.has(d.id)&&!cExcl.has(d.id))
+    .sort((a,b)=>(a.close||"").localeCompare(b.close||"")||(b.amount||0)-(a.amount||0));
+  const panelId="bizCAddPanelInner";
+  const existingPanel=document.getElementById(panelId);
+  const isOpen=existingPanel&&existingPanel.style.display!=="none";
+  const mkRow=(d,isExcl)=>`<tr${isExcl?" style='background:#fff8f8;opacity:0.8;'":""}>
+    <td style="font-weight:700;">${d.name||""}${isExcl?'<br><span style="font-size:9.5px;color:#bf3147;font-weight:700;">Hidden</span>':""}</td>
+    <td>${bizStageLbl(d.stage)}</td>
+    <td>${d.country||""}</td>
+    <td style="text-align:right;font-weight:600;">$${bizFmt(d.amount)}</td>
+    <td>${d.close?bizMonthShort(d.close.substring(0,7)):"—"}</td>
+    <td>${isExcl
+      ?`<button class="btn-biz-add-deal" style="background:#fce8ec;border-color:#f3b8c2;color:#bf3147;" onclick="bizAddToC('${d.id}')">↩ Restore</button>`
+      :`<button class="btn-biz-add-deal" onclick="bizAddToC('${d.id}')">＋ Add</button>`}
+    </td>
+  </tr>`;
+  const allRows=[...excluded.map(d=>mkRow(d,true)),...candidates.map(d=>mkRow(d,false))].join("");
+  area.innerHTML=`
+    <button class="biz-add-trigger" style="border-color:#c4b7f7;color:#533ab7;background:#f3f0fe;" onclick="document.getElementById('${panelId}').style.display=document.getElementById('${panelId}').style.display==='none'?'':'none'">
+      ＋ Add / restore pipeline deals
+    </button>
+    <div id="${panelId}" style="display:${isOpen?"":"none"}">
+      <div class="biz-add-panel-wrap">
+        <div class="biz-add-panel-hdr">
+          <span>Add or restore deals in pipeline view</span>
+          <button class="biz-add-panel-close" onclick="document.getElementById('${panelId}').style.display='none'">✕</button>
+        </div>
+        ${allRows?`<div style="overflow-x:auto;"><table class="biz-tbl-mini"><thead><tr><th>Account</th><th>Stage</th><th>Region</th><th>Total (USD)</th><th>Close</th><th></th></tr></thead><tbody>${allRows}</tbody></table></div>`:'<div class="biz-empty" style="padding:14px;">No additional deals available to add.</div>'}
+      </div>
+    </div>`;
+}
 function setBizMonth(ym){ state.bizReviewMonth=ym; renderBizReview(); }
 function setBizOwner(v){ state.bizOwner=v; renderBizReview(); }
 function setBizSearch(q){
@@ -3459,6 +3575,13 @@ function renderBizReview(){
   if(sinp&&document.activeElement!==sinp) sinp.value=state.bizSearch||"";
   const clr=document.getElementById("bizSearchClear");
   if(clr) clr.style.display=(state.bizSearch||"")?"":"none";
+  // sync per-section search inputs
+  ["A","B","C"].forEach(s=>{
+    const si=document.getElementById("bizSrch"+s);
+    if(si&&document.activeElement!==si) si.value=state["bizSrch"+s]||"";
+    const sc=document.getElementById("bizSrch"+s+"Clr");
+    if(sc) sc.style.display=(state["bizSrch"+s]||"")?"":"none";
+  });
 
   // Owner selector
   const owSel=document.getElementById("bizOwnerSel");
@@ -3486,10 +3609,14 @@ function renderBizReview(){
   const lm=bizAddMonth(rm,-1);
   const {qLabel,qMonths}=bizGetQuarterInfo();
   const sq=(state.bizSearch||"").trim().toLowerCase();
+  const sqA=(state.bizSrchA||"").trim().toLowerCase();
+  const sqB=(state.bizSrchB||"").trim().toLowerCase();
+  const sqC=(state.bizSrchC||"").trim().toLowerCase();
 
   // ── Section A: Last Month ─────────────────────────────────────────────────
   let lastCommitted=bizGetCommittedDeals(lm);
   if(sq) lastCommitted=lastCommitted.filter(d=>(d.name||"").toLowerCase().includes(sq));
+  if(sqA) lastCommitted=lastCommitted.filter(d=>(d.name||"").toLowerCase().includes(sqA));
   document.getElementById("bizSecATitle").textContent=bizMonthLabel(lm)+" — Review Outcomes";
   const aAmt=lastCommitted.reduce((a,d)=>a+(d.amount||0),0);
   document.getElementById("bizSecATotal").textContent=lastCommitted.length?"$"+bizFmt(aAmt):"";
@@ -3519,6 +3646,7 @@ function renderBizReview(){
   // ── Section B: This Month ─────────────────────────────────────────────────
   let thisCommitted=bizGetCommittedDeals(rm);
   if(sq) thisCommitted=thisCommitted.filter(d=>(d.name||"").toLowerCase().includes(sq));
+  if(sqB) thisCommitted=thisCommitted.filter(d=>(d.name||"").toLowerCase().includes(sqB));
   document.getElementById("bizSecBTitle").textContent=bizMonthLabel(rm)+" — Target Closure";
   const bAmt=thisCommitted.reduce((a,d)=>a+(d.amount||0),0);
   document.getElementById("bizSecBTotal").textContent=thisCommitted.length?"$"+bizFmt(bAmt):"";
@@ -3531,12 +3659,14 @@ function renderBizReview(){
   const restMonths=qMonths.filter(ym=>ym>rm);
   let restDeals=bizGetRestOfQuarterDeals(rm);
   if(sq) restDeals=restDeals.filter(d=>(d.name||"").toLowerCase().includes(sq));
+  if(sqC) restDeals=restDeals.filter(d=>(d.name||"").toLowerCase().includes(sqC));
   document.getElementById("bizSecCTitle").textContent="Rest of Quarter — "+qLabel;
   const cAmt=restDeals.reduce((a,d)=>a+(d.amount||0),0);
   document.getElementById("bizSecCTotal").textContent=restDeals.length?"$"+bizFmt(cAmt):"";
   const cCountEl=document.getElementById("bizSecCCount");
   if(cCountEl) cCountEl.textContent=restDeals.length+" deal"+(restDeals.length!==1?"s":"");
   _bizRenderPipeline("bizSecCTable", restDeals, restMonths.length?restMonths:qMonths);
+  _bizRenderCAddPanel("bizSecCAddArea", restDeals);
 
   // Search hint
   const hintEl=document.getElementById("bizSearchHint");
@@ -3551,11 +3681,23 @@ function bizGetRestOfQuarterDeals(reviewMonth){
   const afterRM=new Date(reviewMonth+"-01T00:00:00");
   const endOfRM=new Date(afterRM.getFullYear(),afterRM.getMonth()+1,0,23,59,59);
   const ACTIVE=["qualification","demo","proposal","commercial"];
+  const cExcl=new Set(state.bizCExcludes||[]);
   let deals=state.deals.filter(d=>{
+    if(cExcl.has(d.id)) return false;
     if(!ACTIVE.includes(d.stage)||!d.close) return false;
     const dt=new Date(d.close+"T00:00:00");
     return dt>endOfRM&&dt<=qEnd;
   });
+  // include manually added deals not already in list
+  const manual=state.bizCManual||[];
+  if(manual.length){
+    const ids=new Set(deals.map(d=>d.id));
+    manual.forEach(id=>{
+      if(ids.has(id)||cExcl.has(id)) return;
+      const d=state.deals.find(x=>x.id===id);
+      if(d) deals.push(d);
+    });
+  }
   if(state.bizOwner&&state.bizOwner!=="all") deals=deals.filter(d=>d.owner===state.bizOwner);
   return deals.sort((a,b)=>a.close.localeCompare(b.close)||(b.amount||0)-(a.amount||0));
 }
@@ -3616,7 +3758,7 @@ function _bizRenderLastMonth(elId, deals, lm, rm){
           <button class="btn-biz-shift" onclick="bizShiftDeal('${d.id}','${lm}',document.getElementById('bizShiftSel_${safeId}').value)">→ Shift</button>
         </span>`;
     }
-    const rmBtn=isManual?`<button class="btn-biz-remove" onclick="bizToggleCommit('${d.id}','${lm}')" style="margin-top:2px;">✕ Remove</button>`:"";
+    const rmBtn=`<button class="btn-biz-remove" onclick="bizRemoveFromSection('${d.id}','${lm}')" style="margin-top:2px;" title="Remove from this section">✕ Remove</button>`;
     return `<tr class="${rowCls}">
       <td style="text-align:center;color:#9aa2b2;font-weight:700;">${i+1}</td>
       <td style="font-weight:700;">${_bizHiName(d.name)}${isManual?'<br><span class="biz-override-badge">Manual</span>':""}</td>
@@ -3673,7 +3815,7 @@ function _bizRenderCommitted(elId, deals, rm){
     const badge=isManual?`<span class="biz-override-badge">Manual</span>`:"";
     const wonBtn=!isWon?`<button class="btn-biz-won" onclick="bizSetAchievement('${d.id}','${rm}','won',document.getElementById('bizNote_${safeId}').value)">✓ Mark Won</button>`:"";
     const undoBtn=isWon?`<button class="btn-biz-clear" onclick="bizClearAchievement('${d.id}','${rm}')">↺ Undo</button>`:"";
-    const rmBtn=isManual&&rm?`<button class="btn-biz-remove" onclick="bizToggleCommit('${d.id}','${rm}')">✕ Remove</button>`:"";
+    const rmBtn=rm?`<button class="btn-biz-remove" onclick="bizRemoveFromSection('${d.id}','${rm}')" title="Remove from this section">✕ Remove</button>`:"";
     return `<tr class="${rowCls}">
       <td style="text-align:center;color:#9aa2b2;font-weight:700;">${i+1}</td>
       <td style="font-weight:700;">${_bizHiName(d.name)}${badge?'<br>'+badge:""}</td>
@@ -3747,7 +3889,7 @@ function _bizRenderPipeline(elId, deals, months){
         <td class="td-num" style="font-weight:800;">${bizFmt(d.amount)}</td>
         <td style="white-space:nowrap;">${bizMonthShort(ym)}</td>
         <td>${d.source||""}</td>
-        <td class="td-status"><span style="font-size:10px;font-weight:700;color:${probColor};">${probPct}% prob</span><br>${esc(d.remarks||"")}</td>
+        <td class="td-status"><div style="display:flex;align-items:flex-start;gap:6px;flex-direction:column;"><span style="font-size:10px;font-weight:700;color:${probColor};">${probPct}% prob</span><span style="font-size:10px;color:#7a8499;">${esc(d.remarks||"")}</span><button class="btn-biz-remove" onclick="bizRemoveFromC('${d.id}')" title="Remove from pipeline view">✕ Remove</button></div></td>
       </tr>`;
     });
   });
