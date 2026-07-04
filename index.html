@@ -388,6 +388,146 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
 .biz-tbl-mini td{padding:7px 10px;border-bottom:1px solid #f0f2f7;color:#10172a;vertical-align:middle;}
 .biz-tbl-mini tbody tr:last-child td{border-bottom:none;}
 .btn-biz-add-deal{padding:3px 10px;border-radius:6px;font-size:10.5px;font-weight:700;cursor:pointer;border:1px solid #c4d7fc;background:#e8f0fe;color:#1a56db;font-family:inherit;}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE / RESPONSIVE  –  breakpoints: 768px (tablet) and 480px (phone)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width:768px){
+
+  /* ── Header ─────────────────────────────────────────────────────────────── */
+  .header-inner{padding:10px 16px;gap:10px;flex-wrap:wrap;}
+  .brand-name{font-size:13.5px;}
+  .brand-sub{display:none;}
+  .week-label{min-width:110px;}
+  .week-nav{margin-left:0;}
+  .ring-wrap{padding:5px 9px;gap:6px;}
+  .ring-text{display:none;}
+  .btn-add span:last-child{display:none;}
+  .btn-add{padding:9px 12px;min-width:36px;justify-content:center;}
+  .hdr-right{gap:9px;}
+  .sync-pill{display:none !important;}
+
+  /* ── Nav tabs — horizontally scrollable ─────────────────────────────────── */
+  .nav-tabs{padding:0 16px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:0;scrollbar-width:none;}
+  .nav-tabs::-webkit-scrollbar{display:none;}
+  .nav-tab{font-size:12px;margin-right:12px;padding:9px 2px;white-space:nowrap;flex-shrink:0;}
+
+  /* ── Main content padding ─────────────────────────────────────────────────*/
+  main{padding:14px 14px 48px;}
+  #syncBanner{padding:0 14px;}
+
+  /* ── KPI grid: 2+2+1 ─────────────────────────────────────────────────────*/
+  .kpi-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .kpi{padding:12px 14px;}
+  .kpi-value{font-size:22px;}
+
+  /* ── Team strip: 3 per row ───────────────────────────────────────────────*/
+  .team-strip{grid-template-columns:repeat(3,1fr);gap:8px;}
+
+  /* ── Forecast / breakdown grids: single column ───────────────────────────*/
+  .forecast-grid{grid-template-columns:1fr;gap:10px;}
+  .breakdown-grid{grid-template-columns:1fr;gap:10px;}
+
+  /* ── Card ────────────────────────────────────────────────────────────────*/
+  .card{padding:14px 16px;}
+
+  /* ── Meetings grid: single column ────────────────────────────────────────*/
+  .mtg-grid{grid-template-columns:1fr;gap:10px;}
+
+  /* ── Table toolbar: wrap tighter ─────────────────────────────────────────*/
+  .table-toolbar{padding:12px 14px;gap:8px;}
+  .search-input{width:150px;}
+
+  /* ── Deal table: horizontal scroll ───────────────────────────────────────*/
+  .table-card{border-radius:12px;}
+  .tbl-head,.tbl-row{min-width:700px;}
+  #dealsTableWrap,#viewPipeline .table-card{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  /* ── Expand panel ────────────────────────────────────────────────────────*/
+  .expand-panel{padding:4px 12px 14px;}
+  .expand-inner{padding:14px;}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr;gap:10px;}
+  .grid-2.two-col-ok{grid-template-columns:1fr 1fr;}
+
+  /* ── Contact row ─────────────────────────────────────────────────────────*/
+  .contact-row{grid-template-columns:1fr 1fr;row-gap:4px;height:auto;}
+
+  /* ── Meetings history table ───────────────────────────────────────────────*/
+  #mtgHistSection{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .mtg-hist-head,.mtg-hist-row{min-width:640px;}
+
+  /* ── Activity log ────────────────────────────────────────────────────────*/
+  #viewActivity .table-card{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  /* ── Assistant ───────────────────────────────────────────────────────────*/
+  #viewAssistant .table-card{padding:14px;}
+
+  /* ── Business Review ─────────────────────────────────────────────────────*/
+  .biz-controls{flex-wrap:wrap;padding:12px 14px;gap:8px;}
+  .biz-sec-hdr{flex-direction:column;align-items:flex-start;gap:8px;padding:12px 14px;}
+  .biz-sec-hdr-inner{gap:8px;}
+  .biz-kpi-row{gap:8px;padding:12px 14px;}
+  .biz-kpi-chip{min-width:120px;padding:8px 12px;}
+  .biz-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .biz-tbl{min-width:700px;}
+  .biz-add-panel-wrap{margin:10px 14px;}
+
+  /* ── PPT modal ───────────────────────────────────────────────────────────*/
+  .ppt-modal{min-width:0;width:calc(100vw - 32px);padding:20px 18px 18px;}
+  .ppt-col-grid{grid-template-columns:1fr;}
+
+  /* ── Sort/search row in biz review ──────────────────────────────────────*/
+  .biz-sort-sel{width:140px;}
+  .biz-sec-srch{width:140px;}
+}
+
+@media (max-width:480px){
+
+  /* ── Header ─────────────────────────────────────────────────────────────*/
+  .logo{width:32px;height:32px;font-size:16px;border-radius:9px;}
+  .brand-name{font-size:13px;}
+  .header-inner{padding:8px 12px;}
+  .week-label{min-width:90px;}
+  .wl-main{font-size:11.5px;}
+
+  /* ── Nav tabs ────────────────────────────────────────────────────────────*/
+  .nav-tabs{padding:0 12px;}
+  .nav-tab{font-size:11.5px;margin-right:10px;}
+
+  /* ── Main ────────────────────────────────────────────────────────────────*/
+  main{padding:10px 10px 48px;}
+
+  /* ── KPI grid: still 2 columns but smaller ───────────────────────────────*/
+  .kpi{padding:10px 12px;}
+  .kpi-value{font-size:20px;}
+  .kpi-label{font-size:9.5px;}
+
+  /* ── Team strip: 2 per row ───────────────────────────────────────────────*/
+  .team-strip{grid-template-columns:repeat(2,1fr);}
+
+  /* ── Table toolbar ───────────────────────────────────────────────────────*/
+  .search-input{width:130px;font-size:12px;}
+  .table-toolbar{padding:10px 12px;}
+
+  /* ── Expand inner ────────────────────────────────────────────────────────*/
+  .expand-panel{padding:4px 10px 12px;}
+  .expand-inner{padding:12px;}
+  .btn-mark{padding:8px 12px;font-size:12px;}
+
+  /* ── Business Review ─────────────────────────────────────────────────────*/
+  .biz-kpi-chip{min-width:100px;padding:7px 10px;}
+  .biz-sec-step{width:26px;height:26px;font-size:13px;}
+  .biz-sec-title{font-size:13.5px;}
+  .biz-sort-sel,.biz-sec-srch{width:120px;font-size:11px;}
+
+  /* ── Cards ───────────────────────────────────────────────────────────────*/
+  .card{padding:12px;}
+  .card-title{font-size:12.5px;}
+
+  /* ── Meetings ────────────────────────────────────────────────────────────*/
+  .mtg-card{padding:12px 14px;}
+}
 </style>
 </head>
 <body>
