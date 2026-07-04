@@ -3784,6 +3784,8 @@ function renderBizReview(){
   if(cCountEl) cCountEl.textContent=restDeals.length+" deal"+(restDeals.length!==1?"s":"");
   _bizRenderPipeline("bizSecCTable", restDeals, restMonths.length?restMonths:qMonths);
   _bizRenderCAddPanel("bizSecCAddArea", restDeals);
+  // Store currently displayed deals for PPT export
+  state._biz={lm,rm,lmDeals:[...lastCommitted],rmDeals:[...thisCommitted],pipeDeals:[...restDeals],qLabel,qMonths:restMonths.length?restMonths:qMonths,achA:(state.bizAchievements||{})[lm]||{},achB:(state.bizAchievements||{})[rm]||{}};
 
   // Search hint
   const hintEl=document.getElementById("bizSearchHint");
@@ -4028,18 +4030,21 @@ async function _doExportBizPPT(){
     alert("PptxGenJS library not loaded. Please check your internet connection and try again.");
     return;
   }
-  const rm=state.bizReviewMonth||"";
-  if(!rm){ alert("Please select a review month first."); return; }
+  const biz=state._biz;
+  if(!biz){ alert("Please open Business Review first so the data loads."); return; }
+  const rm=biz.rm, lm=biz.lm;
 
   const btn=document.getElementById("btnExportPPT");
   if(btn){ btn.textContent="Generating…"; btn.disabled=true; }
 
   try {
-    const nm=bizAddMonth(rm,1);
-    const committed=bizGetCommittedDeals(rm);
-    const nextM=bizGetCommittedDeals(nm);
-    const {qLabel,qMonths}=bizGetQuarterInfo();
-    const pipelineDeals=bizGetPipelineDeals();
+    // Use EXACTLY what is displayed on screen
+    const lmDeals=biz.lmDeals;     // Section ① Last Month (filtered/sorted as shown)
+    const rmDeals=biz.rmDeals;     // Section ② This Month (filtered/sorted as shown)
+    const pipeDeals=biz.pipeDeals; // Section ③ Rest of Quarter (filtered/sorted as shown)
+    const achA=biz.achA, achB=biz.achB;
+    const {qLabel}=bizGetQuarterInfo();
+    const qMonths=biz.qMonths;
 
     const BLUE="0070C0",WHITE="FFFFFF",DGRAY="404040",LGRAY="F5F5F5",SBGRAY="D6DCE4",BORD="BDD0E3";
     const W=20.18,H=11.34,TBLX=0.38,TBLW=W-0.76;
@@ -4060,9 +4065,9 @@ async function _doExportBizPPT(){
       {key:"status",w:0,   hdr:"Status",       hdrA:"Achievement Notes"},
     ];
     const VIS=ALL_COLS.filter(col=>pc[col.key]||col.key==="sno"||col.key==="account"||col.key==="total");
-    const fixedW=VIS.filter(c=>c.key!=="status").reduce((a,c)=>a+c.w,0);
-    const hasStatus=VIS.some(c=>c.key==="status");
-    const COL_W=VIS.map(c=>c.key==="status"?Math.max(1.2,TBLW-fixedW):c.w);
+    const fixedW=VIS.filter(c=>c.key!=="status").reduce((s,c)=>s+c.w,0);
+    const statusW=Math.max(1.8,TBLW-fixedW);
+    const COL_W=VIS.map(c=>c.key==="status"?statusW:c.w);
     const COL_HDR=VIS.map(c=>c.hdr);
     const ACHV_W=COL_W;
     const ACHV_HDR=VIS.map(c=>c.hdrA);
@@ -4109,115 +4114,144 @@ async function _doExportBizPPT(){
     pres.defineLayout({name:"HONO",width:W,height:H});
     pres.layout="HONO";
 
-    // Slide 1: Target Closure (review month)
-    {
-      const sl=pres.addSlide(); addHdr(sl,"SEA Target Closure till end "+bizMonthLabel(rm));
-      const rows=[COL_HDR.map(h),...dealRows(committed)];
-      const tArr=committed.reduce((a,d)=>a+(d.arr||0),0);
-      const tImpl=committed.reduce((a,d)=>a+(d.impl||0),0);
-      const tAmt=committed.reduce((a,d)=>a+(d.amount||0),0);
-      rows.push(totalRow(tArr,tImpl,tAmt));
-      const rowH=[0.48,...committed.map(()=>0.5),0.40];
-      sl.addTable(rows,{x:TBLX,y:1.42,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
-    }
+    // Helper: build achievement-status cell
+    const achv=(text,status)=>{
+      const mp={Won:{fg:"1F7A45",bg:"E4F5EA"},Slipped:{fg:"BF3147",bg:"FCE8EA"},Pending:{fg:"A96B06",bg:"FFF3E0"}};
+      const s=mp[status]||{fg:DGRAY,bg:WHITE};
+      return {text,options:{fontSize:8.5,color:s.fg,bold:!!status,valign:"middle",border:{pt:0.5,color:BORD},fill:{color:s.bg},fontFace:"Calibri"}};
+    };
 
-    // Slide 2: Achievement vs Committed
-    {
-      const sl=pres.addSlide(); addHdr(sl,"SEA "+bizMonthLabel(rm)+" — Achievement vs Committed");
-      const _pptAchMap=(state.bizAchievements||{})[rm]||{};
-      const tAmt=committed.reduce((a,d)=>a+(d.amount||0),0);
-      const wonAmt=committed.filter(d=>{ const ov=_pptAchMap[d.id]; return ov?ov.status==="won":d.stage==="won"; }).reduce((a,d)=>a+(d.amount||0),0);
-      const slipAmt=tAmt-wonAmt;
-      const rate=tAmt>0?(wonAmt/tAmt*100).toFixed(1)+"%":"0%";
-      const chips=[
-        {label:"Committed",val:"$"+fmt(tAmt),color:BLUE},
-        {label:"Won / Achieved",val:"$"+fmt(wonAmt),color:"1F7A45"},
-        {label:"Slipped to Next Month",val:"$"+fmt(slipAmt),color:"BF3147"},
-        {label:"Achievement Rate",val:rate,color:"A96B06"},
-      ];
+    // Helper: month subtotal row
+    const subRow=(label,mArr,mImpl,mAmt,count)=>VIS.map(col=>{
+      if(col.key==="account") return sc(label);
+      if(col.key==="arr")     return sc(fmt(mArr),{align:"right"});
+      if(col.key==="impl")    return sc(fmt(mImpl),{align:"right"});
+      if(col.key==="total")   return sc(fmt(mAmt),{align:"right"});
+      if(col.key==="status")  return sc(count!=null?count+" deal"+(count!==1?"s":""):"");
+      return sc("");
+    });
+
+    // Helper: grand total row
+    const grandTotal=(label,tArr,tImpl,tAmt)=>VIS.map(col=>{
+      if(col.key==="account") return {text:label,options:{...B,bold:true,color:WHITE,fontSize:9,fontFace:"Calibri"}};
+      if(col.key==="arr")   return {text:fmt(tArr),options:{...B,bold:true,color:WHITE,align:"right",fontSize:9,fontFace:"Calibri"}};
+      if(col.key==="impl")  return {text:fmt(tImpl),options:{...B,bold:true,color:WHITE,align:"right",fontSize:9,fontFace:"Calibri"}};
+      if(col.key==="total") return {text:fmt(tAmt),options:{...B,bold:true,color:WHITE,align:"right",fontSize:9,fontFace:"Calibri"}};
+      return {text:"",options:{...B}};
+    });
+
+    // KPI bar helper
+    const addKPIBar=(sl,chips,y)=>{
+      const cw=(TBLW-0.1*(chips.length-1))/chips.length;
       chips.forEach((chip,i)=>{
-        const cx=0.38+i*4.88;
-        sl.addShape(pres.shapes.ROUNDED_RECTANGLE,{x:cx,y:1.42,w:4.65,h:0.58,fill:{color:chip.color,transparency:88},rectRadius:0.08,line:{color:chip.color,width:0.5}});
-        sl.addText([{text:chip.label+"   ",options:{fontSize:8,color:DGRAY}},{text:chip.val,options:{fontSize:14,bold:true,color:chip.color}}],{x:cx+0.1,y:1.42,w:4.55,h:0.58,valign:"middle",fontFace:"Calibri"});
+        const cx=TBLX+i*(cw+0.1);
+        sl.addShape(pres.shapes.ROUNDED_RECTANGLE,{x:cx,y,w:cw,h:0.55,fill:{color:chip.color,transparency:88},rectRadius:0.06,line:{color:chip.color,width:0.5}});
+        sl.addText([{text:chip.label+"  ",options:{fontSize:8,color:DGRAY,fontFace:"Calibri"}},{text:chip.val,options:{fontSize:13,bold:true,color:chip.color,fontFace:"Calibri"}}],{x:cx+0.08,y,w:cw-0.1,h:0.55,valign:"middle",fontFace:"Calibri"});
       });
-      function achv(text,status){
-        const mp={Won:{fg:"1F7A45",bg:"E4F5EA"},Slipped:{fg:"BF3147",bg:"FCE8EA"}};
-        const s=mp[status]||{fg:DGRAY,bg:WHITE};
-        return {text,options:{fontSize:8,color:s.fg,bold:!!status,valign:"top",border:{pt:0.5,color:BORD},fill:{color:s.bg}}};
-      }
-      const tArr=committed.reduce((a,d)=>a+(d.arr||0),0);
-      const tImpl=committed.reduce((a,d)=>a+(d.impl||0),0);
-      const rows=[ACHV_HDR.map(h),...committed.map((d,i)=>{
-        const _ov=_pptAchMap[d.id];
-        const isWon=_ov?_ov.status==="won":d.stage==="won";
-        const _note=_ov?_ov.note:(d.remarks||"");
-        const achvText=isWon?"Won ✓ — "+(_note||"Contract executed."):"Slipped — "+(_note||"Pending closure.");
-        const baseMap={sno:c(String(i+1)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(d.close?d.close.substring(0,7):"")),source:c(d.source||""),status:achv(achvText,isWon?"Won":"Slipped")};
-        return VIS.map(col=>baseMap[col.key]);
-      }),
-      VIS.map(col=>{
-        if(col.key==="arr")   return {text:fmt(tArr),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
-        if(col.key==="impl")  return {text:fmt(tImpl),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
-        if(col.key==="total") return {text:"C:"+fmt(tAmt)+" W:"+fmt(wonAmt),options:{...B,bold:true,color:WHITE,align:"right",fontSize:7.5}};
-        if(col.key==="sno")   return {text:"",options:{...B}};
-        if(col.key==="account") return {text:"TOTAL",options:{...B,bold:true,color:WHITE,fontSize:8.5}};
-        return {text:"",options:{...B}};
-      })];
-      const rowH=[0.48,...committed.map(()=>0.5),0.40];
-      sl.addTable(rows,{x:TBLX,y:2.12,w:TBLW,rowH,colW:ACHV_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
+    };
+
+    // ── SLIDE 1: Section ① Last Month — Review Outcomes ──────────────────────
+    {
+      const sl=pres.addSlide();
+      addHdr(sl,bizMonthLabel(lm)+" — Review Outcomes ("+lmDeals.length+" deal"+(lmDeals.length!==1?"s":"")+")");
+      // KPI bar
+      const tAmt=lmDeals.reduce((a,d)=>a+(d.amount||0),0);
+      const wonAmt=lmDeals.filter(d=>{const ov=achA[d.id];return ov?ov.status==="won":d.stage==="won";}).reduce((a,d)=>a+(d.amount||0),0);
+      const shiftAmt=lmDeals.filter(d=>{const ov=achA[d.id];return ov&&ov.status==="shifted";}).reduce((a,d)=>a+(d.amount||0),0);
+      const rate=tAmt>0?(wonAmt/tAmt*100).toFixed(1)+"%":"—";
+      addKPIBar(sl,[
+        {label:"Committed",val:"$"+fmt(tAmt),color:BLUE},
+        {label:"Closed / Won",val:"$"+fmt(wonAmt),color:"1F7A45"},
+        {label:"Shifted Out",val:"$"+fmt(shiftAmt),color:"A96B06"},
+        {label:"Not Closed",val:"$"+fmt(Math.max(0,tAmt-wonAmt-shiftAmt)),color:"BF3147"},
+        {label:"Achievement Rate",val:rate,color:"533AB7"},
+      ],1.36);
+      // Table
+      let tArr=0,tImpl=0;
+      const rows=[ACHV_HDR.map(h),...lmDeals.map((d,i)=>{
+        tArr+=(d.arr||0); tImpl+=(d.impl||0);
+        const ov=achA[d.id];
+        const isWon=ov?ov.status==="won":d.stage==="won";
+        const isShift=ov&&ov.status==="shifted";
+        const status=isWon?"Won":isShift?"Shifted":"Pending";
+        const note=ov?ov.note:(d.remarks||"");
+        const achvText=isWon?"Won ✓"+(note?" — "+note:""):isShift?"Shifted"+(ov.shiftedTo?" → "+bizMonthShort(ov.shiftedTo):"")+(note?" — "+note:""):"Pending"+(note?" — "+note:"");
+        const base={sno:c(String(i+1)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(d.close?d.close.substring(0,7):"")),source:c(d.source||""),status:achv(achvText,status)};
+        return VIS.map(col=>base[col.key]);
+      }),grandTotal("TOTAL",tArr,tImpl,lmDeals.reduce((a,d)=>a+(d.amount||0),0))];
+      const rowH=[0.46,...lmDeals.map(()=>0.48),0.38];
+      sl.addTable(rows,{x:TBLX,y:2.02,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
     }
 
-    // Slide 3: Quarter Pipeline
+    // ── SLIDE 2: Section ② This Month — Target Closure ───────────────────────
     {
-      const sl=pres.addSlide(); addHdr(sl,"Next Quarter Pipeline – "+qLabel);
+      const sl=pres.addSlide();
+      addHdr(sl,bizMonthLabel(rm)+" — Target Closure ("+rmDeals.length+" deal"+(rmDeals.length!==1?"s":"")+")");
+      // KPI bar
+      const tAmt=rmDeals.reduce((a,d)=>a+(d.amount||0),0);
+      const wonAmt=rmDeals.filter(d=>{const ov=achB[d.id];return ov?ov.status==="won":d.stage==="won";}).reduce((a,d)=>a+(d.amount||0),0);
+      addKPIBar(sl,[
+        {label:"Target Committed",val:"$"+fmt(tAmt),color:BLUE},
+        {label:"Won So Far",val:"$"+fmt(wonAmt),color:"1F7A45"},
+        {label:"Open",val:"$"+fmt(tAmt-wonAmt),color:"A96B06"},
+      ],1.36);
+      // Table
+      let tArr=0,tImpl=0;
+      const rows=[COL_HDR.map(h),...rmDeals.map((d,i)=>{
+        tArr+=(d.arr||0); tImpl+=(d.impl||0);
+        const ov=achB[d.id];
+        const isWon=ov?ov.status==="won":d.stage==="won";
+        const note=ov?ov.note:(d.remarks||"");
+        const statusText=isWon?"Won ✓"+(note?" — "+note:""):note||"";
+        const base={sno:c(String(i+1)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(d.close?d.close.substring(0,7):"")),source:c(d.source||""),status:isWon?achv(statusText,"Won"):c(statusText)};
+        return VIS.map(col=>base[col.key]);
+      }),grandTotal("TOTAL",tArr,tImpl,rmDeals.reduce((a,d)=>a+(d.amount||0),0))];
+      const rowH=[0.46,...rmDeals.map(()=>0.48),0.38];
+      sl.addTable(rows,{x:TBLX,y:2.02,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
+    }
+
+    // ── SLIDE 3: Section ③ Rest of Quarter — Pipeline ────────────────────────
+    {
+      const sl=pres.addSlide();
+      addHdr(sl,"Rest of Quarter — "+qLabel+" ("+pipeDeals.length+" deal"+(pipeDeals.length!==1?"s":"")+")");
       let rows=[COL_HDR.map(h)];
       let seq=0,tArr=0,tImpl=0,tAmt=0;
-      const rowH=[0.55];
+      const rowH=[0.46];
+      // Group by month (in the order they appear on screen)
+      const seen=new Set();
       qMonths.forEach(ym=>{
-        const md=pipelineDeals.filter(d=>d.close&&d.close.startsWith(ym));
+        const md=pipeDeals.filter(d=>d.close&&d.close.startsWith(ym));
         if(!md.length) return;
         const mArr=md.reduce((a,d)=>a+(d.arr||0),0);
         const mImpl=md.reduce((a,d)=>a+(d.impl||0),0);
         const mAmt=md.reduce((a,d)=>a+(d.amount||0),0);
         tArr+=mArr; tImpl+=mImpl; tAmt+=mAmt;
-        rows.push(VIS.map(col=>{
-          if(col.key==="sno") return sc("");
-          if(col.key==="account") return sc(bizMonthLabel(ym).toUpperCase());
-          if(col.key==="arr")  return sc(fmt(mArr),{align:"right"});
-          if(col.key==="impl") return sc(fmt(mImpl),{align:"right"});
-          if(col.key==="total")return sc(fmt(mAmt),{align:"right",bold:true});
-          if(col.key==="status") return sc("Monthly subtotal");
-          return sc("");
-        }));
-        rowH.push(0.38);
+        rows.push(subRow(bizMonthLabel(ym).toUpperCase(),mArr,mImpl,mAmt,md.length));
+        rowH.push(0.36);
         md.forEach(d=>{
           seq++;
-          const pMap={sno:c(String(seq)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(ym)),source:c(d.source||""),status:c(d.remarks||"")};
-          rows.push(VIS.map(col=>pMap[col.key]));
-          rowH.push(0.5);
+          seen.add(d.id);
+          const probPct=Math.round((d.prob||0)*100);
+          const statusText=(probPct?probPct+"% prob — ":"")+(d.remarks||"");
+          const base={sno:c(String(seq)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(ym)),source:c(d.source||""),status:c(statusText)};
+          rows.push(VIS.map(col=>base[col.key]));
+          rowH.push(0.46);
         });
       });
-      rows.push(VIS.map(col=>{
-        if(col.key==="arr")   return {text:fmt(tArr),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
-        if(col.key==="impl")  return {text:fmt(tImpl),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
-        if(col.key==="total") return {text:fmt(tAmt),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5,bold:true}};
-        if(col.key==="sno")   return {text:"",options:{...B}};
-        if(col.key==="account") return {text:"Q TOTAL",options:{...B,bold:true,color:WHITE,fontSize:8.5}};
-        return {text:"",options:{...B}};
-      }));
-      rowH.push(0.42);
-      sl.addTable(rows,{x:TBLX,y:1.42,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
-    }
-
-    // Slide 4: Next Month Committed
-    {
-      const sl=pres.addSlide(); addHdr(sl,"SEA Target Closure – "+bizMonthLabel(nm));
-      const rows=[COL_HDR.map(h),...dealRows(nextM)];
-      const tArr=nextM.reduce((a,d)=>a+(d.arr||0),0);
-      const tImpl=nextM.reduce((a,d)=>a+(d.impl||0),0);
-      const tAmt=nextM.reduce((a,d)=>a+(d.amount||0),0);
-      rows.push(totalRow(tArr,tImpl,tAmt));
-      const rowH=[0.48,...nextM.map(()=>0.5),0.40];
+      // Any manually added deals without a close month in qMonths
+      const extra=pipeDeals.filter(d=>!seen.has(d.id));
+      if(extra.length){
+        rows.push(subRow("OTHER",0,0,extra.reduce((a,d)=>a+(d.amount||0),0),extra.length));
+        rowH.push(0.36);
+        extra.forEach(d=>{
+          seq++;
+          const base={sno:c(String(seq)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(d.close?d.close.substring(0,7):"")),source:c(d.source||""),status:c(d.remarks||"")};
+          rows.push(VIS.map(col=>base[col.key]));
+          rowH.push(0.46);
+        });
+      }
+      rows.push(grandTotal("Q TOTAL",tArr,tImpl,tAmt));
+      rowH.push(0.38);
       sl.addTable(rows,{x:TBLX,y:1.42,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
     }
 
