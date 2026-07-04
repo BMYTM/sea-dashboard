@@ -323,6 +323,25 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
 .biz-search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#9aa2b2;font-size:15px;line-height:1;padding:2px;font-family:inherit;}
 .biz-search-hint{font-size:11px;color:#9aa2b2;font-weight:600;}
 .biz-sec-srch-wrap{position:relative;display:inline-flex;align-items:center;}
+.biz-sort-wrap{display:inline-flex;align-items:center;gap:5px;}
+.biz-sort-lbl{font-size:10.5px;font-weight:700;color:#9aa2b2;white-space:nowrap;}
+.biz-sort-sel{padding:4px 22px 4px 8px;font-size:11px;font-weight:600;border:1.5px solid #e0e4ef;border-radius:7px;background:#f8f9fc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239aa2b2'/%3E%3C/svg%3E") no-repeat right 6px center;-webkit-appearance:none;appearance:none;cursor:pointer;color:#28304a;font-family:inherit;outline:none;transition:border .15s;}
+.biz-sort-sel:focus{border-color:#2f43c9;background-color:#fff;}
+.biz-stage-sel{padding:3px 20px 3px 6px;font-size:10.5px;font-weight:600;border:1.5px solid #e0e4ef;border-radius:6px;background:#f8f9fc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%239aa2b2'/%3E%3C/svg%3E") no-repeat right 5px center;-webkit-appearance:none;appearance:none;cursor:pointer;color:#28304a;font-family:inherit;outline:none;min-width:90px;}
+.biz-stage-sel:focus{border-color:#2f43c9;}
+.ppt-modal-overlay{position:fixed;inset:0;background:rgba(24,30,50,0.45);z-index:9999;display:flex;align-items:center;justify-content:center;}
+.ppt-modal{background:#fff;border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,0.18);padding:28px 32px 24px;min-width:440px;max-width:560px;}
+.ppt-modal-title{font-size:17px;font-weight:800;color:#1a2240;margin-bottom:4px;}
+.ppt-modal-sub{font-size:11.5px;color:#7a8499;margin-bottom:18px;}
+.ppt-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.ppt-col-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #e0e4ef;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:#28304a;transition:border .15s,background .15s;user-select:none;}
+.ppt-col-item:hover{border-color:#2f43c9;background:#f4f6ff;}
+.ppt-col-item input[type=checkbox]{accent-color:#2f43c9;width:15px;height:15px;cursor:pointer;}
+.ppt-col-item.locked{opacity:0.55;cursor:default;}
+.ppt-modal-footer{display:flex;justify-content:flex-end;gap:10px;}
+.btn-ppt-cancel{padding:8px 20px;border-radius:8px;border:1.5px solid #d0d5e8;background:#f8f9fc;color:#445;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-ppt-export{padding:8px 22px;border-radius:8px;border:none;background:#0070C0;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-ppt-export:hover{background:#005fa3;}
 .biz-sec-srch{padding:5px 26px 5px 26px;font-size:11.5px;font-weight:500;border:1.5px solid #e0e4ef;border-radius:7px;background:#f8f9fc;width:165px;font-family:inherit;outline:none;transition:border 0.15s,box-shadow 0.15s;color:#28304a;}
 .biz-sec-srch:focus{border-color:#2f43c9;box-shadow:0 0 0 3px rgba(47,67,201,0.08);background:#fff;}
 .biz-sec-srch-ico{position:absolute;left:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:#9aa2b2;}
@@ -731,7 +750,7 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
             </div>
             <span class="biz-sec-count" id="bizSecACount" style="background:#e8f0fe;color:#0070C0;"></span>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchA" type="text" placeholder="Search…" oninput="setBizSrch('A',this.value)"><button class="biz-sec-srch-clr" id="bizSrchAClr" onclick="clearBizSrch('A')" style="display:none">×</button></div><div id="bizSecATotal" style="font-size:20px;font-weight:800;color:#0070C0;white-space:nowrap;"></div></div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchA" type="text" placeholder="Search…" oninput="setBizSrch('A',this.value)"><button class="biz-sec-srch-clr" id="bizSrchAClr" onclick="clearBizSrch('A')" style="display:none">×</button></div><div class="biz-sort-wrap"><span class="biz-sort-lbl">Sort:</span><select class="biz-sort-sel" onchange="setBizSort('A',this.value)" id="bizSortSelA"><option value="default">Default order</option><option value="country">Country</option><option value="month">Close Month</option><option value="country-month">Country → Month</option></select></div></div><div id="bizSecATotal" style="font-size:20px;font-weight:800;color:#0070C0;white-space:nowrap;margin-top:4px;"></div>
         </div>
         <div class="biz-kpi-row" id="bizSecAKPI" style="padding:0 22px 4px;"></div>
         <div class="biz-table-wrap"><div id="bizSecATable"></div></div>
@@ -749,7 +768,7 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
             </div>
             <span class="biz-sec-count" id="bizSecBCount" style="background:#e4f5ea;color:#147a45;"></span>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchB" type="text" placeholder="Search…" oninput="setBizSrch('B',this.value)"><button class="biz-sec-srch-clr" id="bizSrchBClr" onclick="clearBizSrch('B')" style="display:none">×</button></div><div id="bizSecBTotal" style="font-size:20px;font-weight:800;color:#147a45;white-space:nowrap;"></div></div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchB" type="text" placeholder="Search…" oninput="setBizSrch('B',this.value)"><button class="biz-sec-srch-clr" id="bizSrchBClr" onclick="clearBizSrch('B')" style="display:none">×</button></div><div class="biz-sort-wrap"><span class="biz-sort-lbl">Sort:</span><select class="biz-sort-sel" onchange="setBizSort('B',this.value)" id="bizSortSelB"><option value="default">Default order</option><option value="country">Country</option><option value="month">Close Month</option><option value="country-month">Country → Month</option></select></div></div><div id="bizSecBTotal" style="font-size:20px;font-weight:800;color:#147a45;white-space:nowrap;margin-top:4px;"></div>
         </div>
         <div class="biz-table-wrap"><div id="bizSecBTable"></div></div>
         <div id="bizSecBAddArea"></div>
@@ -766,7 +785,7 @@ main{max-width:1360px;margin:0 auto;padding:24px 28px 64px;}
             </div>
             <span class="biz-sec-count" id="bizSecCCount" style="background:#eeebfb;color:#533ab7;"></span>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchC" type="text" placeholder="Search…" oninput="setBizSrch('C',this.value)"><button class="biz-sec-srch-clr" id="bizSrchCClr" onclick="clearBizSrch('C')" style="display:none">×</button></div><div id="bizSecCTotal" style="font-size:20px;font-weight:800;color:#533ab7;white-space:nowrap;"></div></div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><div class="biz-sec-srch-wrap"><svg class="biz-sec-srch-ico" width="13" height="13" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="2"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input class="biz-sec-srch" id="bizSrchC" type="text" placeholder="Search…" oninput="setBizSrch('C',this.value)"><button class="biz-sec-srch-clr" id="bizSrchCClr" onclick="clearBizSrch('C')" style="display:none">×</button></div><div class="biz-sort-wrap"><span class="biz-sort-lbl">Sort:</span><select class="biz-sort-sel" onchange="setBizSort('C',this.value)" id="bizSortSelC"><option value="default">Default order</option><option value="country">Country</option><option value="month">Close Month</option><option value="country-month">Country → Month</option></select></div></div><div id="bizSecCTotal" style="font-size:20px;font-weight:800;color:#533ab7;white-space:nowrap;margin-top:4px;"></div>
         </div>
         <div class="biz-table-wrap"><div id="bizSecCTable"></div></div>
         <div id="bizSecCAddArea"></div>
@@ -1162,7 +1181,7 @@ async function saveToFlow() {
 }
 
 function localPersist() {
-  try { localStorage.setItem("sea-weekly-v8", JSON.stringify({deals:state.deals,meetings:state.meetings,activityLog:state.activityLog,bizCommitOverrides:state.bizCommitOverrides,bizAchievements:state.bizAchievements,bizExcludes:state.bizExcludes,bizCExcludes:state.bizCExcludes,bizCManual:state.bizCManual,bizDrafts:state.bizDrafts,users:state.users})); } catch(e){}
+  try { localStorage.setItem("sea-weekly-v8", JSON.stringify({deals:state.deals,meetings:state.meetings,activityLog:state.activityLog,bizCommitOverrides:state.bizCommitOverrides,bizAchievements:state.bizAchievements,bizExcludes:state.bizExcludes,bizCExcludes:state.bizCExcludes,bizCManual:state.bizCManual,bizSortA:state.bizSortA,bizSortB:state.bizSortB,bizSortC:state.bizSortC,pptCols:state.pptCols,bizDrafts:state.bizDrafts,users:state.users})); } catch(e){}
 }
 
 function persist() {
@@ -1264,6 +1283,10 @@ let state = {
   bizExcludes: (saved && saved.bizExcludes) || {},
   bizCExcludes: (saved && saved.bizCExcludes) || [],
   bizCManual: (saved && saved.bizCManual) || [],
+  bizSortA: (saved && saved.bizSortA) || "default",
+  bizSortB: (saved && saved.bizSortB) || "default",
+  bizSortC: (saved && saved.bizSortC) || "month",
+  pptCols: (saved && saved.pptCols) || {sno:true,account:true,stage:true,region:true,emp:true,arr:true,impl:true,total:true,close:true,source:true,status:true},
   bizDrafts: (saved && saved.bizDrafts) || {},
   users: (saved && saved.users) || DEFAULT_USERS,
   currentUserId: localStorage.getItem("sea-weekly-current-user") || "u1",
@@ -3509,6 +3532,95 @@ function _bizRenderCAddPanel(areaId, currentDeals){
       </div>
     </div>`;
 }
+
+// ── Sort helper ─────────────────────────────────────────────────────────────
+function bizApplySort(deals, mode){
+  if(!mode||mode==="default") return deals;
+  return [...deals].sort((a,b)=>{
+    if(mode==="country"){
+      return (a.country||"").localeCompare(b.country||"")||(b.amount||0)-(a.amount||0);
+    }
+    if(mode==="month"){
+      return (a.close||"").localeCompare(b.close||"")||(b.amount||0)-(a.amount||0);
+    }
+    if(mode==="country-month"){
+      return (a.country||"").localeCompare(b.country||"")||
+             (a.close||"").localeCompare(b.close||"")||
+             (b.amount||0)-(a.amount||0);
+    }
+    return 0;
+  });
+}
+function setBizSort(sec, val){
+  state["bizSort"+sec]=val;
+  localPersist();
+  renderBizReview();
+}
+
+// ── Inline stage select ──────────────────────────────────────────────────────
+function bizStageSelect(dealId,currentStage){
+  const STAGES=["qualification","demo","proposal","commercial","won"];
+  const LABELS={"qualification":"Qualification","demo":"Demo","proposal":"Proposal","commercial":"Commercial","won":"Won"};
+  const opts=STAGES.map(s=>`<option value="${s}"${s===currentStage?" selected":""}>${LABELS[s]||s}</option>`).join("");
+  return `<select class="biz-stage-sel" onchange="bizUpdateStage('${dealId}',this.value)">${opts}</select>`;
+}
+function bizUpdateStage(dealId, newStage){
+  const d=state.deals.find(x=>x.id===dealId);
+  if(!d) return;
+  d.stage=newStage;
+  localPersist();
+  renderBizReview();
+}
+
+// ── PPT column chooser ───────────────────────────────────────────────────────
+function showPPTColChooser(){
+  if(document.getElementById("pptModalOverlay")) return;
+  const cols=state.pptCols||{sno:true,account:true,stage:true,region:true,emp:true,arr:true,impl:true,total:true,close:true,source:true,status:true};
+  const DEFS=[
+    {key:"sno",    label:"S.No.",        locked:true},
+    {key:"account",label:"Account Name", locked:true},
+    {key:"stage",  label:"Deal Stage",   locked:false},
+    {key:"region", label:"Region",       locked:false},
+    {key:"emp",    label:"Employees",    locked:false},
+    {key:"arr",    label:"Annual Sub (USD)", locked:false},
+    {key:"impl",   label:"One-time Fee (USD)", locked:false},
+    {key:"total",  label:"Total Amount (USD)", locked:true},
+    {key:"close",  label:"Close Month",  locked:false},
+    {key:"source", label:"Deal Source",  locked:false},
+    {key:"status", label:"Status / Notes", locked:false},
+  ];
+  const items=DEFS.map(d=>`
+    <label class="ppt-col-item${d.locked?" locked":""}" ${d.locked?"title='Always included'":""}>
+      <input type="checkbox" id="pptcol_${d.key}" ${cols[d.key]||d.locked?"checked":""} ${d.locked?"disabled":""}/>
+      ${d.label}
+    </label>`).join("");
+  const ov=document.createElement("div");
+  ov.id="pptModalOverlay";
+  ov.className="ppt-modal-overlay";
+  ov.innerHTML=`<div class="ppt-modal">
+    <div class="ppt-modal-title">Export to PowerPoint</div>
+    <div class="ppt-modal-sub">Choose which columns to include in the slides</div>
+    <div class="ppt-col-grid">${items}</div>
+    <div class="ppt-modal-footer">
+      <button class="btn-ppt-cancel" onclick="document.getElementById('pptModalOverlay').remove()">Cancel</button>
+      <button class="btn-ppt-export" onclick="confirmPPTExport()">⬇ Generate PPT</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+}
+function confirmPPTExport(){
+  const KEYS=["sno","account","stage","region","emp","arr","impl","total","close","source","status"];
+  const cols={};
+  KEYS.forEach(k=>{
+    const el=document.getElementById("pptcol_"+k);
+    cols[k]=el?el.checked:true;
+  });
+  state.pptCols=cols;
+  localPersist();
+  const ov=document.getElementById("pptModalOverlay");
+  if(ov) ov.remove();
+  _doExportBizPPT();
+}
 function setBizMonth(ym){ state.bizReviewMonth=ym; renderBizReview(); }
 function setBizOwner(v){ state.bizOwner=v; renderBizReview(); }
 function setBizSearch(q){
@@ -3575,12 +3687,14 @@ function renderBizReview(){
   if(sinp&&document.activeElement!==sinp) sinp.value=state.bizSearch||"";
   const clr=document.getElementById("bizSearchClear");
   if(clr) clr.style.display=(state.bizSearch||"")?"":"none";
-  // sync per-section search inputs
+  // sync per-section search + sort inputs
   ["A","B","C"].forEach(s=>{
     const si=document.getElementById("bizSrch"+s);
     if(si&&document.activeElement!==si) si.value=state["bizSrch"+s]||"";
     const sc=document.getElementById("bizSrch"+s+"Clr");
     if(sc) sc.style.display=(state["bizSrch"+s]||"")?"":"none";
+    const ss=document.getElementById("bizSortSel"+s);
+    if(ss) ss.value=state["bizSort"+s]||"default";
   });
 
   // Owner selector
@@ -3617,6 +3731,7 @@ function renderBizReview(){
   let lastCommitted=bizGetCommittedDeals(lm);
   if(sq) lastCommitted=lastCommitted.filter(d=>(d.name||"").toLowerCase().includes(sq));
   if(sqA) lastCommitted=lastCommitted.filter(d=>(d.name||"").toLowerCase().includes(sqA));
+  lastCommitted=bizApplySort(lastCommitted,state.bizSortA||"default");
   document.getElementById("bizSecATitle").textContent=bizMonthLabel(lm)+" — Review Outcomes";
   const aAmt=lastCommitted.reduce((a,d)=>a+(d.amount||0),0);
   document.getElementById("bizSecATotal").textContent=lastCommitted.length?"$"+bizFmt(aAmt):"";
@@ -3647,6 +3762,7 @@ function renderBizReview(){
   let thisCommitted=bizGetCommittedDeals(rm);
   if(sq) thisCommitted=thisCommitted.filter(d=>(d.name||"").toLowerCase().includes(sq));
   if(sqB) thisCommitted=thisCommitted.filter(d=>(d.name||"").toLowerCase().includes(sqB));
+  thisCommitted=bizApplySort(thisCommitted,state.bizSortB||"default");
   document.getElementById("bizSecBTitle").textContent=bizMonthLabel(rm)+" — Target Closure";
   const bAmt=thisCommitted.reduce((a,d)=>a+(d.amount||0),0);
   document.getElementById("bizSecBTotal").textContent=thisCommitted.length?"$"+bizFmt(bAmt):"";
@@ -3660,6 +3776,7 @@ function renderBizReview(){
   let restDeals=bizGetRestOfQuarterDeals(rm);
   if(sq) restDeals=restDeals.filter(d=>(d.name||"").toLowerCase().includes(sq));
   if(sqC) restDeals=restDeals.filter(d=>(d.name||"").toLowerCase().includes(sqC));
+  restDeals=bizApplySort(restDeals,state.bizSortC||"month");
   document.getElementById("bizSecCTitle").textContent="Rest of Quarter — "+qLabel;
   const cAmt=restDeals.reduce((a,d)=>a+(d.amount||0),0);
   document.getElementById("bizSecCTotal").textContent=restDeals.length?"$"+bizFmt(cAmt):"";
@@ -3762,7 +3879,7 @@ function _bizRenderLastMonth(elId, deals, lm, rm){
     return `<tr class="${rowCls}">
       <td style="text-align:center;color:#9aa2b2;font-weight:700;">${i+1}</td>
       <td style="font-weight:700;">${_bizHiName(d.name)}${isManual?'<br><span class="biz-override-badge">Manual</span>':""}</td>
-      <td>${bizStageLbl(d.stage)}</td>
+      <td>${bizStageSelect(d.id,d.stage)}</td>
       <td>${d.country||""}</td>
       <td class="td-num">${bizFmt(d.emp)}</td>
       <td class="td-num">${bizFmt(d.arr)}</td>
@@ -3819,7 +3936,7 @@ function _bizRenderCommitted(elId, deals, rm){
     return `<tr class="${rowCls}">
       <td style="text-align:center;color:#9aa2b2;font-weight:700;">${i+1}</td>
       <td style="font-weight:700;">${_bizHiName(d.name)}${badge?'<br>'+badge:""}</td>
-      <td>${bizStageLbl(d.stage)}</td>
+      <td>${bizStageSelect(d.id,d.stage)}</td>
       <td>${d.country||""}</td>
       <td class="td-num">${bizFmt(d.emp)}</td>
       <td class="td-num">${bizFmt(d.arr)}</td>
@@ -3881,7 +3998,7 @@ function _bizRenderPipeline(elId, deals, months){
       rowsHtml+=`<tr>
         <td style="text-align:center;color:#9aa2b2;font-weight:700;">${seq}</td>
         <td style="font-weight:700;">${_bizHiName(d.name)}${ownerBadge}</td>
-        <td>${bizStageLbl(d.stage)}</td>
+        <td>${bizStageSelect(d.id,d.stage)}</td>
         <td>${d.country||""}</td>
         <td class="td-num">${bizFmt(d.emp)}</td>
         <td class="td-num">${bizFmt(d.arr)}</td>
@@ -3905,7 +4022,8 @@ function _bizRenderPipeline(elId, deals, months){
 }
 
 // ─── EXPORT PPT ──────────────────────────────────────────────────────────────
-async function exportBizPPT(){
+async function exportBizPPT(){ showPPTColChooser(); }
+async function _doExportBizPPT(){
   if(typeof PptxGenJS==="undefined"){
     alert("PptxGenJS library not loaded. Please check your internet connection and try again.");
     return;
@@ -3926,44 +4044,66 @@ async function exportBizPPT(){
     const BLUE="0070C0",WHITE="FFFFFF",DGRAY="404040",LGRAY="F5F5F5",SBGRAY="D6DCE4",BORD="BDD0E3";
     const W=20.18,H=11.34,TBLX=0.38,TBLW=W-0.76;
     const logoData="image/png;base64,"+HONO_LOGO_B64;
-    const COL_W=[0.52,2.60,1.38,1.48,1.20,1.42,1.18,1.26,1.16,1.10,TBLW-(0.52+2.60+1.38+1.48+1.20+1.42+1.18+1.26+1.16+1.10)];
-    const COL_HDR=["S.No.","Account Name","Deal Stage","Region","Target Number of\nEmployees","Annual Subscription\nFee (USD)","One time fee\n(USD)","Total Amount\n(USD)","Expected\nClose Month","Deal Source","Status"];
-    const ACHV_W=[0.52,2.60,1.38,1.48,1.10,1.30,1.18,1.26,1.10,TBLW-(0.52+2.60+1.38+1.48+1.10+1.30+1.18+1.26+1.10)];
-    const ACHV_HDR=["S.No.","Account Name","Deal Stage","Region","Target\nEmployees","Annual Sub\nFee (USD)","One Time\nFee (USD)","Total Amount\n(USD)","Deal Source","Achievement Status & Notes"];
+    // Dynamic columns based on user selection
+    const pc=state.pptCols||{sno:true,account:true,stage:true,region:true,emp:true,arr:true,impl:true,total:true,close:true,source:true,status:true};
+    const ALL_COLS=[
+      {key:"sno",  w:0.52, hdr:"#",           hdrA:"#"},
+      {key:"account",w:2.80,hdr:"Account Name",hdrA:"Account Name"},
+      {key:"stage",w:1.38, hdr:"Deal Stage",   hdrA:"Deal Stage"},
+      {key:"region",w:1.48,hdr:"Region",       hdrA:"Region"},
+      {key:"emp",  w:1.20, hdr:"Employees",    hdrA:"Employees"},
+      {key:"arr",  w:1.42, hdr:"Annual Sub\n(USD)",hdrA:"Annual Sub\n(USD)"},
+      {key:"impl", w:1.18, hdr:"One-Time\n(USD)",  hdrA:"One-Time\n(USD)"},
+      {key:"total",w:1.26, hdr:"Total (USD)",  hdrA:"Total (USD)"},
+      {key:"close",w:1.16, hdr:"Close Month",  hdrA:"Close Month"},
+      {key:"source",w:1.10,hdr:"Source",       hdrA:"Source"},
+      {key:"status",w:0,   hdr:"Status",       hdrA:"Achievement Notes"},
+    ];
+    const VIS=ALL_COLS.filter(col=>pc[col.key]||col.key==="sno"||col.key==="account"||col.key==="total");
+    const fixedW=VIS.filter(c=>c.key!=="status").reduce((a,c)=>a+c.w,0);
+    const hasStatus=VIS.some(c=>c.key==="status");
+    const COL_W=VIS.map(c=>c.key==="status"?Math.max(1.2,TBLW-fixedW):c.w);
+    const COL_HDR=VIS.map(c=>c.hdr);
+    const ACHV_W=COL_W;
+    const ACHV_HDR=VIS.map(c=>c.hdrA);
 
     const fmt=n=>n?Number(n).toLocaleString("en-US"):"";
-    const h=label=>({text:label,options:{bold:true,color:WHITE,fill:{color:BLUE},fontSize:8,align:"center",valign:"middle",border:{pt:0.5,color:WHITE}}});
-    const c=(text,o={})=>({text:String(text??""),options:{fontSize:8,color:DGRAY,valign:"top",border:{pt:0.5,color:BORD},fill:{color:WHITE},...o}});
+    const h=label=>({text:label,options:{bold:true,color:WHITE,fill:{color:BLUE},fontSize:9,align:"center",valign:"middle",border:{pt:0.5,color:WHITE},fontFace:"Calibri",charSpacing:0.3}});
+    const c=(text,o={})=>({text:String(text??""),options:{fontSize:9,color:DGRAY,valign:"middle",border:{pt:0.5,color:BORD},fill:{color:WHITE},fontFace:"Calibri",...o}});
     const nr=(text,o={})=>c(text,{align:"right",...o});
-    const sc=(text,o={})=>({text,options:{fill:{color:SBGRAY},border:{pt:0.5,color:BORD},fontSize:8,bold:true,color:DGRAY,...o}});
+    const sc=(text,o={})=>({text,options:{fill:{color:SBGRAY},border:{pt:0.5,color:BORD},fontSize:9,bold:true,color:DGRAY,fontFace:"Calibri",...o}});
     const B={fill:{color:BLUE},border:{pt:0.5,color:WHITE}};
-    const totalRow=(cols,sub,otf,tot)=>[
-      {text:"",options:{...B}},
-      {text:"",options:{...B,colspan:cols-6}},
-      {text:"Total",options:{...B,bold:true,color:WHITE,align:"center",fontSize:8}},
-      {text:fmt(sub),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},
-      {text:fmt(otf),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},
-      {text:fmt(tot),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},
-      {text:"",options:{...B,colspan:3}},
-    ];
+    const totalRow=(sub,otf,tot)=>{
+      // Build footer row aligned with VIS columns
+      return VIS.map(col=>{
+        if(col.key==="arr")   return {text:fmt(sub),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
+        if(col.key==="impl")  return {text:fmt(otf),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
+        if(col.key==="total") return {text:fmt(tot),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
+        if(col.key==="sno")   return {text:"",options:{...B}};
+        if(col.key==="account") return {text:"TOTAL",options:{...B,bold:true,color:WHITE,fontSize:8.5}};
+        return {text:"",options:{...B}};
+      });
+    };
     const addHdr=(sl,title)=>{
       sl.background={color:LGRAY};
       sl.addImage({data:logoData,x:0.38,y:0.18,w:2.2,h:0.34});
-      sl.addText(title,{x:0.38,y:0.68,w:TBLW,h:0.55,fontSize:22,bold:true,color:DGRAY,underline:true,fontFace:"Calibri",valign:"middle"});
+      sl.addText(title,{x:0.38,y:0.60,w:TBLW,h:0.62,fontSize:20,bold:true,color:BLUE,fontFace:"Calibri",valign:"middle",charSpacing:0.5});
+      sl.addShape(pres.shapes.RECTANGLE,{x:0.38,y:1.26,w:TBLW,h:0.04,fill:{color:BLUE},line:{color:BLUE,width:0}});
     };
-    const dealRows=deals=>deals.map((d,i)=>[
-      c(String(i+1)),
-      c(d.name||""),
-      c(bizStageLbl(d.stage)),
-      c(d.country||""),
-      nr(fmt(d.emp)),
-      nr(fmt(d.arr)),
-      nr(fmt(d.impl)),
-      nr(fmt(d.amount)),
-      c(bizMonthShort(d.close?d.close.substring(0,7):"")),
-      c(d.source||""),
-      c(d.remarks||""),
-    ]);
+    const cellMap=(d,i)=>({
+      sno:   c(String(i+1)),
+      account:c(d.name||""),
+      stage: c(bizStageLbl(d.stage)),
+      region:c(d.country||""),
+      emp:   nr(fmt(d.emp)),
+      arr:   nr(fmt(d.arr)),
+      impl:  nr(fmt(d.impl)),
+      total: nr(fmt(d.amount),{bold:true}),
+      close: c(bizMonthShort(d.close?d.close.substring(0,7):"")),
+      source:c(d.source||""),
+      status:c(d.remarks||""),
+    });
+    const dealRows=deals=>deals.map((d,i)=>VIS.map(col=>cellMap(d,i)[col.key]));
 
     const pres=new PptxGenJS();
     pres.defineLayout({name:"HONO",width:W,height:H});
@@ -3976,8 +4116,8 @@ async function exportBizPPT(){
       const tArr=committed.reduce((a,d)=>a+(d.arr||0),0);
       const tImpl=committed.reduce((a,d)=>a+(d.impl||0),0);
       const tAmt=committed.reduce((a,d)=>a+(d.amount||0),0);
-      rows.push(totalRow(11,tArr,tImpl,tAmt));
-      const rowH=[0.55,...committed.map(()=>1.2),0.42];
+      rows.push(totalRow(tArr,tImpl,tAmt));
+      const rowH=[0.48,...committed.map(()=>0.5),0.40];
       sl.addTable(rows,{x:TBLX,y:1.42,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
     }
 
@@ -4012,17 +4152,18 @@ async function exportBizPPT(){
         const isWon=_ov?_ov.status==="won":d.stage==="won";
         const _note=_ov?_ov.note:(d.remarks||"");
         const achvText=isWon?"Won ✓ — "+(_note||"Contract executed."):"Slipped — "+(_note||"Pending closure.");
-        return [c(String(i+1)),c(d.name||""),c(bizStageLbl(d.stage)),c(d.country||""),nr(fmt(d.emp)),nr(fmt(d.arr)),nr(fmt(d.impl)),nr(fmt(d.amount)),c(d.source||""),achv(achvText,isWon?"Won":"Slipped")];
+        const baseMap={sno:c(String(i+1)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(d.close?d.close.substring(0,7):"")),source:c(d.source||""),status:achv(achvText,isWon?"Won":"Slipped")};
+        return VIS.map(col=>baseMap[col.key]);
       }),
-      [
-        {text:"",options:{...B}},{text:"",options:{...B,colspan:ACHV_W.length-6}},
-        {text:"Total",options:{...B,bold:true,color:WHITE,align:"center",fontSize:8}},
-        {text:fmt(tArr),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},
-        {text:fmt(tImpl),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},
-        {text:"Committed: "+fmt(tAmt)+"\nWon: "+fmt(wonAmt),options:{...B,bold:true,color:WHITE,align:"right",fontSize:7.5}},
-        {text:"",options:{...B,colspan:2}},
-      ]];
-      const rowH=[0.55,...committed.map(()=>1.05),0.42];
+      VIS.map(col=>{
+        if(col.key==="arr")   return {text:fmt(tArr),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
+        if(col.key==="impl")  return {text:fmt(tImpl),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
+        if(col.key==="total") return {text:"C:"+fmt(tAmt)+" W:"+fmt(wonAmt),options:{...B,bold:true,color:WHITE,align:"right",fontSize:7.5}};
+        if(col.key==="sno")   return {text:"",options:{...B}};
+        if(col.key==="account") return {text:"TOTAL",options:{...B,bold:true,color:WHITE,fontSize:8.5}};
+        return {text:"",options:{...B}};
+      })];
+      const rowH=[0.48,...committed.map(()=>0.5),0.40];
       sl.addTable(rows,{x:TBLX,y:2.12,w:TBLW,rowH,colW:ACHV_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
     }
 
@@ -4039,15 +4180,31 @@ async function exportBizPPT(){
         const mImpl=md.reduce((a,d)=>a+(d.impl||0),0);
         const mAmt=md.reduce((a,d)=>a+(d.amount||0),0);
         tArr+=mArr; tImpl+=mImpl; tAmt+=mAmt;
-        rows.push([sc(""),sc(bizMonthLabel(ym).toUpperCase(),{colspan:3}),sc(""),sc(fmt(mArr),{align:"right"}),sc(fmt(mImpl),{align:"right"}),sc(fmt(mAmt),{align:"right"}),sc("Monthly subtotal",{colspan:3})]);
+        rows.push(VIS.map(col=>{
+          if(col.key==="sno") return sc("");
+          if(col.key==="account") return sc(bizMonthLabel(ym).toUpperCase());
+          if(col.key==="arr")  return sc(fmt(mArr),{align:"right"});
+          if(col.key==="impl") return sc(fmt(mImpl),{align:"right"});
+          if(col.key==="total")return sc(fmt(mAmt),{align:"right",bold:true});
+          if(col.key==="status") return sc("Monthly subtotal");
+          return sc("");
+        }));
         rowH.push(0.38);
         md.forEach(d=>{
           seq++;
-          rows.push([c(String(seq)),c(d.name||""),c(bizStageLbl(d.stage)),c(d.country||""),nr(fmt(d.emp)),nr(fmt(d.arr)),nr(fmt(d.impl)),nr(fmt(d.amount)),c(bizMonthShort(ym)),c(d.source||""),c(d.remarks||"")]);
+          const pMap={sno:c(String(seq)),account:c(d.name||""),stage:c(bizStageLbl(d.stage)),region:c(d.country||""),emp:nr(fmt(d.emp)),arr:nr(fmt(d.arr)),impl:nr(fmt(d.impl)),total:nr(fmt(d.amount),{bold:true}),close:c(bizMonthShort(ym)),source:c(d.source||""),status:c(d.remarks||"")};
+          rows.push(VIS.map(col=>pMap[col.key]));
           rowH.push(0.5);
         });
       });
-      rows.push([{text:"",options:{...B}},{text:"",options:{...B,colspan:2}},{text:"Q TOTAL",options:{...B,bold:true,color:WHITE,align:"center",fontSize:8}},{text:"",options:{...B}},{text:fmt(tArr),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},{text:fmt(tImpl),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},{text:fmt(tAmt),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8}},{text:"",options:{...B,colspan:3}}]);
+      rows.push(VIS.map(col=>{
+        if(col.key==="arr")   return {text:fmt(tArr),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
+        if(col.key==="impl")  return {text:fmt(tImpl),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5}};
+        if(col.key==="total") return {text:fmt(tAmt),options:{...B,bold:true,color:WHITE,align:"right",fontSize:8.5,bold:true}};
+        if(col.key==="sno")   return {text:"",options:{...B}};
+        if(col.key==="account") return {text:"Q TOTAL",options:{...B,bold:true,color:WHITE,fontSize:8.5}};
+        return {text:"",options:{...B}};
+      }));
       rowH.push(0.42);
       sl.addTable(rows,{x:TBLX,y:1.42,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
     }
@@ -4059,8 +4216,8 @@ async function exportBizPPT(){
       const tArr=nextM.reduce((a,d)=>a+(d.arr||0),0);
       const tImpl=nextM.reduce((a,d)=>a+(d.impl||0),0);
       const tAmt=nextM.reduce((a,d)=>a+(d.amount||0),0);
-      rows.push(totalRow(11,tArr,tImpl,tAmt));
-      const rowH=[0.55,...nextM.map(()=>1.2),0.42];
+      rows.push(totalRow(tArr,tImpl,tAmt));
+      const rowH=[0.48,...nextM.map(()=>0.5),0.40];
       sl.addTable(rows,{x:TBLX,y:1.42,w:TBLW,rowH,colW:COL_W,border:{pt:0.5,color:BORD},fontFace:"Calibri"});
     }
 
